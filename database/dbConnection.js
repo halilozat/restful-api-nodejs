@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://localhost/restful_api', {useUnifiedTopology:true, useNewUrlParser:trueöo})
+mongoose.connect('mongodb://localhost/restful_api', {useUnifiedTopology:true, useNewUrlParser:true})
     .then(() => console.log("Database connection is successful!"))
     .catch(err => console.log("Database connection error!"))
 
