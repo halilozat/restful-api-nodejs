@@ -1,0 +1,25 @@
+{
+  "name": "restfull-api-nodejs",
+  "version": "1.0.0",
+  "description": "My first Restfull API with Node.js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/halilozat/restfull-api-nodejs.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/halilozat/restfull-api-nodejs/issues"
+  },
+  "homepage": "https://github.com/halilozat/restfull-api-nodejs#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.9.13"
+  }
+}
