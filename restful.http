@@ -1,4 +1,4 @@
-@BASE_URL = http://localhost:3000/api
+@BASE_URL = http://localhost:3005/api
 
 GET {{BASE_URL}}
 
@@ -13,21 +13,22 @@ POST {{BASE_URL}}/users
 Content-Type: application/json
 
 {
-    "name":"halil",
-    "age": 23,
-    "UserName": "halilozat"
+    "name":"asfa1254",
+    "email": "hasgd5@hotmail.com124",
+    "userName": "lyssithea1",
+    "password": "123456"
 }
 
 ###
-PATCH {{BASE_URL}}/users/554
+PATCH {{BASE_URL}}/users/608ac2521238ad4880e9a1ee
 Content-Type: application/json
 
 {
-    "name":"halil3",
+    "name":"halil7",
     "age": 23,
-    "UserName": "halilozat3"
+    "UserName": "halilozat4"
 }
 
 ###
-DELETE {{BASE_URL}}/users/554
+DELETE {{BASE_URL}}/users/608ac33213dc8614842ab997
 Content-Type: application/json
