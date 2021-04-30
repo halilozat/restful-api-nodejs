@@ -2,6 +2,7 @@ const router = require('express').Router()
 const User = require('../models/userModel')
 var createError = require('http-errors')
 
+
 router.get('/', async (req,res) => {
     const allUsers =await User.find({})
     res.json(allUsers)
@@ -11,13 +12,22 @@ router.get('/:id', (req,res) => {
     res.json({message:"All users with id: " +req.params.id+ " will be listed"})
 })
 
-router.post('/',async (req,res) => {
+router.post('/',async (req,res,next) => {
    
     try{
         const addedUser = new User(req.body)
-        const result = await addedUser.save()
-        res.json(result)
+
+        const {error, value} = addedUser.joiValidation(req.body)
+        if(error){
+            next(createError(400,error))
+        }else{
+            const result = await addedUser.save()
+            res.json(result)
+        }
+
+        
     }catch(err){
+        next(err)
         console.log("user save error "+err)
     }
 

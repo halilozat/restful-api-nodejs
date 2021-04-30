@@ -4,7 +4,9 @@ const errorCatcher = (err,req,res,next) => {
 
         return res.json({
 
-            message: JSON.stringify(err.keyValue) + "is not unique",
+            message: Object.keys(err.keyValue) + " for value " 
+            + Object.values(err.keyValue) 
+            + " is not unique",
             errorCode: 400
 
         })
@@ -22,7 +24,7 @@ const errorCatcher = (err,req,res,next) => {
 
 
 
-    res.statusCode(err.statusCode || 500)
+    res.status(err.statusCode || 500)
     res.json({
         errorCode : err.statusCode || 400,
         message: err.message
