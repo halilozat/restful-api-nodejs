@@ -24,9 +24,10 @@ PATCH {{BASE_URL}}/users/608ac2521238ad4880e9a1ee
 Content-Type: application/json
 
 {
-    "name":"halil7",
+    "name":"halil5",
     "age": 23,
-    "UserName": "halilozat4"
+    "UserName": "halilozat5",
+    "password": "9999999"
 }
 
 ###

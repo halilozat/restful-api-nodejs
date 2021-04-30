@@ -1,5 +1,6 @@
 const router = require('express').Router()
 const User = require('../models/userModel')
+var createError = require('http-errors')
 
 router.get('/', async (req,res) => {
     const allUsers =await User.find({})
@@ -22,8 +23,14 @@ router.post('/',async (req,res) => {
 
 })
 
-router.patch('/:id',async (req,res) => {
+
+router.patch('/:id',async (req,res,next) => {
     
+    delete req.body.createdAt
+    delete req.body.updatedAt
+    delete req.body.password
+
+
     try{
         const result = await User.findByIdAndUpdate({_id:req.params.id}, req.body, 
             {new:true, runValidators:true})
@@ -38,7 +45,7 @@ router.patch('/:id',async (req,res) => {
 
     }catch(err){
 
-        console.log("update error! "+err)
+        next(err)
 
     }
 
@@ -53,18 +60,10 @@ router.delete('/:id',async (req,res,next) => {
                 message: "User deleted",
             })
         }else{
-            
-            const errorObject = new Error('User not found')
-            errorObject.errorCode = 404
-
-            throw errorObject
-
-            /*return res.status(404).json({
-                message: "User not found",
-            })*/
+            throw createError(404, 'User not found')
         }
-    }catch(err){
-        next(err)
+    } catch(err) {
+        next(createError(400, err))
     }
 })
 
