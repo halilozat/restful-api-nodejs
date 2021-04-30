@@ -1,5 +1,6 @@
 const express = require('express')
 require('./database/dbConnection')
+const errorMiddleware = require('./middleware/errorMiddleware')
 
 //ROUTES
 const userRouter = require('./router/userRouter')
@@ -15,6 +16,8 @@ app.use('/api/users', userRouter)
 app.get('/',(req,res) => {
     res.json({'message': 'Welcome!'})
 })
+
+app.use(errorMiddleware)
 
 app.listen(3005, () => {
     console.log("Connection is successful!")
