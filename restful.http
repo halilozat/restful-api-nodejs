@@ -20,6 +20,15 @@ Content-Type: application/json
 }
 
 ###
+POST {{BASE_URL}}/users/login
+Content-Type: application/json
+
+{
+    "email": "haasafaaaa@hotmail.com",
+    "password": "1534asf25"
+}
+
+###
 PATCH {{BASE_URL}}/users/608d50e9791cde4fb0ee7551
 Content-Type: application/json
 
