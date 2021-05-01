@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const User = require('../models/userModel')
 var createError = require('http-errors')
+const bcrypto = require('bcrypt')
 
 
 router.get('/', async (req,res) => {
@@ -16,6 +17,10 @@ router.post('/',async (req,res,next) => {
    
     try{
         const addedUser = new User(req.body)
+
+        //hashed
+        addedUser.password = await bcrypto.hash(addedUser.password, 8)
+
 
         const {error, value} = addedUser.joiValidation(req.body)
         if(error){
@@ -38,9 +43,12 @@ router.patch('/:id',async (req,res,next) => {
     
     delete req.body.createdAt
     delete req.body.updatedAt
-    delete req.body.password
 
-    const {error, value} = User.joiValidationForUpdate(req.body)
+    if(req.body.hasOwnProperty('password')){
+        req.body.password = await bcrypto.hash(req.body.password, 8)
+    }
+
+    const {error, value} = User.joiValidationForUpdate (req.body)
     if(error) {
 
         next(createError(400,error))
@@ -50,6 +58,7 @@ router.patch('/:id',async (req,res,next) => {
         try{
             const result = await User.findByIdAndUpdate({_id:req.params.id}, req.body, 
                 {new:true, runValidators:true})
+                
             if(result){
                 return res.json(result)
             }else{

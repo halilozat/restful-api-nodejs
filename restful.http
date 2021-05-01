@@ -13,18 +13,19 @@ POST {{BASE_URL}}/users
 Content-Type: application/json
 
 {
-    "name": "1241a2",
-    "email": "haasgdaa@hotmail.com",
-    "userName": "aaaaaa",
-    "password": "123456789"
+    "name": "asf",
+    "email": "haasafaaaa@hotmail.com",
+    "userName": "aaaaasfa",
+    "password": "1534asf25"
 }
 
 ###
-PATCH {{BASE_URL}}/users/608ac33213dc8614842ab997
+PATCH {{BASE_URL}}/users/608d50e9791cde4fb0ee7551
 Content-Type: application/json
 
 {
-    "email":"halil@hotmail.com"   
+    "userName": "asfasfas",
+    "password":"1534asf25"   
 }
 
 ###
