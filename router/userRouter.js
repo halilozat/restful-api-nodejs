@@ -40,24 +40,34 @@ router.patch('/:id',async (req,res,next) => {
     delete req.body.updatedAt
     delete req.body.password
 
+    const {error, value} = User.joiValidationForUpdate(req.body)
+    if(error) {
 
-    try{
-        const result = await User.findByIdAndUpdate({_id:req.params.id}, req.body, 
-            {new:true, runValidators:true})
-        if(result){
-            return res.json(result)
-        }else{
-            return res.status(404).json({
-                message: "User not found",
-            })
+        next(createError(400,error))
+
+    }else {
+
+        try{
+            const result = await User.findByIdAndUpdate({_id:req.params.id}, req.body, 
+                {new:true, runValidators:true})
+            if(result){
+                return res.json(result)
+            }else{
+                return res.status(404).json({
+                    message: "User not found",
+                })
+            }
+    
+    
+        }catch(err){
+    
+            next(err)
+    
         }
 
-
-    }catch(err){
-
-        next(err)
-
     }
+
+    
 
 })
 
