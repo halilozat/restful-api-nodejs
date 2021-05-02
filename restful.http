@@ -38,5 +38,15 @@ Content-Type: application/json
 }
 
 ###
+PATCH {{BASE_URL}}/users/me
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhkNTM1MzNjOTdlYzIwZDRiY2YxOTAiLCJpYXQiOjE2MTk5NjI4ODIsImV4cCI6MTYxOTk2NjQ4Mn0.eG4EUWTOgZjuL9sqKHpZ-ZtaFWnLbsIk2U4nwq9uook
+
+{
+    "userName": "halil",
+    "password":"1534asf25"   
+}
+
+###
 DELETE {{BASE_URL}}/users/608ac33213dc8614842ab997
 Content-Type: application/json

@@ -3,6 +3,7 @@ const Schema = mongoose.Schema
 const Joi = require('@hapi/joi')
 const createError = require('http-errors');
 const bcrypto = require('bcrypt')
+const jwt = require('jsonwebtoken')
 
 const userSchema = new Schema({
 
@@ -95,6 +96,14 @@ userSchema.statics.login = async (email, password) => {
     return user
 }
 
+
+userSchema.methods.generateToken = async function() {
+    const loginUser = this
+
+    const token = await jwt.sign({_id:loginUser._id},'secretkey',{expiresIn:'1h'})
+    
+    return token
+}
 
 
 const User = mongoose.model('User', userSchema)
