@@ -1,197 +1,35 @@
 const router = require('express').Router()
-const User = require('../models/userModel')
-const createError = require('http-errors')
-const bcrypto = require('bcrypt')
+
 const authMiddleware = require('../middleware/authMiddleware')
 const adminMiddleware = require('../middleware/adminMiddleware')
+const userController = require('../controllers/userController')
 
+//Only admin list all users
+router.get('/', [authMiddleware,adminMiddleware], userController.listAllUsers)
 
+//Logged in user can list their information
+router.get('/me', authMiddleware, userController.loggedInUserInfo)
 
-router.get('/', [authMiddleware,adminMiddleware], async (req,res) => {
-    const allUsers = await User.find({})
-    res.json(allUsers)
-})
+//Logged in user can update their information
+router.patch('/me', authMiddleware, userController.loggedInUserUpdate)
 
+// Create new user
+router.post('/', userController.createNewUser)
 
-router.get('/me', authMiddleware, (req,res,next) => {
-    res.json(req.user)
+//login
+router.post('/login',userController.login)
 
-})
+//Admin can update user information
+router.patch('/:id', userController.adminUserUpdate)
 
-router.patch('/me', authMiddleware, async (req,res,next) => {
-    delete req.body.createdAt
-    delete req.body.updatedAt
+//Delete all users
+router.get('/deleteAll', [authMiddleware,adminMiddleware], userController.deleteAll)
 
-    if(req.body.hasOwnProperty('password')){
-        req.body.password = await bcrypto.hash(req.body.password, 8)
-    }
+//User can be deleted by id
+router.delete('/:id', [authMiddleware,adminMiddleware], userController.deleteById)
 
-    const {error, value} = User.joiValidationForUpdate (req.body)
-    if(error) {
-
-        next(createError(400,error))
-
-    }else {
-
-        try{
-            const result = await User.findByIdAndUpdate({_id:req.user._id}, req.body, 
-                {new:true, runValidators:true})
-                
-            if(result){
-                return res.json(result)
-            }else{
-                return res.status(404).json({
-                    message: "User not found",
-                })
-            }
-    
-    
-        }catch(err){
-    
-            next(err)
-    
-        }
-
-    }
-
-})
-
-
-router.post('/',async (req,res,next) => {
-   
-    try{
-        const addedUser = new User(req.body)
-
-        //hashed
-        addedUser.password = await bcrypto.hash(addedUser.password, 8)
-
-
-        const {error, value} = addedUser.joiValidation(req.body)
-        if(error){
-            next(createError(400,error))
-        }else{
-            const result = await addedUser.save()
-            res.json(result)
-        }
-
-        
-    }catch(err){
-        next(err)
-        console.log("user save error "+err)
-    }
-
-})
-
-
-router.post('/login',async (req,res,next) => {
-
-    try{
-
-        const user = await User.login(req.body.email, req.body.password)
-        const token = await user.generateToken()
-        res.json({
-            user,
-            token
-        })
-
-    }catch(error){
-
-        next(error)
-
-    }
-
-
-})
-
-
-
-router.patch('/:id',async (req,res,next) => {
-    
-    delete req.body.createdAt
-    delete req.body.updatedAt
-
-    if(req.body.hasOwnProperty('password')){
-        req.body.password = await bcrypto.hash(req.body.password, 8)
-    }
-
-    const {error, value} = User.joiValidationForUpdate (req.body)
-    if(error) {
-
-        next(createError(400,error))
-
-    }else {
-
-        try{
-            const result = await User.findByIdAndUpdate({_id:req.params.id}, req.body, 
-                {new:true, runValidators:true})
-                
-            if(result){
-                return res.json(result)
-            }else{
-                return res.status(404).json({
-                    message: "User not found",
-                })
-            }
-    
-    
-        }catch(err){
-    
-            next(err)
-    
-        }
-
-    }
-
-    
-
-})
-
-
-router.get('/deleteAll', [authMiddleware,adminMiddleware], async (req,res,next) => {
-    try{
-        const result = await User.deleteMany({isAdmin: false})
-        if(result){
-            return res.json({
-                message: "All users deleted",
-            })
-        }else{
-            throw createError(404, 'User not found')
-        }
-    } catch(err) {
-        next(createError(400, err))
-    }
-})
-
-
-router.delete('/:id', [authMiddleware,adminMiddleware], async (req,res,next) => {
-    try{
-        const result = await User.findById({_id:req.params.id})
-        if(result){
-            return res.json({
-                message: "User deleted",
-            })
-        }else{
-            throw createError(404, 'User not found')
-        }
-    } catch(err) {
-        next(createError(400, err))
-    }
-})
-
-router.delete('/me', authMiddleware, async (req,res,next) => {
-    try{
-        const result = await User.findById({_id:req.user._id})
-        if(result){
-            return res.json({
-                message: "User deleted",
-            })
-        }else{
-            throw createError(404, 'User not found')
-        }
-    } catch(err) {
-        next(createError(400, err))
-    }
-})
+//Delete me account
+router.delete('/me', authMiddleware, userController.deleteMe)
 
 
 
