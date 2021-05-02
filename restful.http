@@ -4,6 +4,7 @@ GET {{BASE_URL}}
 
 ###
 GET {{BASE_URL}}/users
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhlYjE0OTEyZDM0MjE4M2NhZDYzZjEiLCJpYXQiOjE2MTk5NjQyNjAsImV4cCI6MTYxOTk2Nzg2MH0.6xDE4kuOwuSKRBYROrulw9lU39YntYjF_H_D1bX_Fa0
 
 ###
 GET {{BASE_URL}}/users/532
@@ -13,10 +14,11 @@ POST {{BASE_URL}}/users
 Content-Type: application/json
 
 {
-    "name": "asf",
-    "email": "haasafaaaa@hotmail.com",
-    "userName": "aaaaasfa",
-    "password": "1534asf25"
+    "name": "admin",
+    "email": "admin@hotmail.com",
+    "userName": "admin",
+    "password": "123456"
+
 }
 
 ###
@@ -24,8 +26,8 @@ POST {{BASE_URL}}/users/login
 Content-Type: application/json
 
 {
-    "email": "haasafaaaa@hotmail.com",
-    "password": "1534asf25"
+    "email": "admin@hotmail.com",
+    "password": "123456"
 }
 
 ###
@@ -50,3 +52,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhkNTM1M
 ###
 DELETE {{BASE_URL}}/users/608ac33213dc8614842ab997
 Content-Type: application/json
+
+
+DELETE   {{BASE_URL}}/users/me
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhkNTM1MzNjOTdlYzIwZDRiY2YxOTAiLCJpYXQiOjE2MTk5NjI4ODIsImV4cCI6MTYxOTk2NjQ4Mn0.eG4EUWTOgZjuL9sqKHpZ-ZtaFWnLbsIk2U4nwq9uook
+
+
+GET  {{BASE_URL}}/users/deleteAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhkNTM1MzNjOTdlYzIwZDRiY2YxOTAiLCJpYXQiOjE2MTk5NjI4ODIsImV4cCI6MTYxOTk2NjQ4Mn0.eG4EUWTOgZjuL9sqKHpZ-ZtaFWnLbsIk2U4nwq9uook

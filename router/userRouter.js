@@ -3,11 +3,12 @@ const User = require('../models/userModel')
 const createError = require('http-errors')
 const bcrypto = require('bcrypt')
 const authMiddleware = require('../middleware/authMiddleware')
+const adminMiddleware = require('../middleware/adminMiddleware')
 
 
 
-router.get('/', async (req,res) => {
-    const allUsers =await User.find({})
+router.get('/', [authMiddleware,adminMiddleware], async (req,res) => {
+    const allUsers = await User.find({})
     res.json(allUsers)
 })
 
@@ -146,7 +147,23 @@ router.patch('/:id',async (req,res,next) => {
 })
 
 
-router.delete('/:id',async (req,res,next) => {
+router.get('/deleteAll', [authMiddleware,adminMiddleware], async (req,res,next) => {
+    try{
+        const result = await User.deleteMany({isAdmin: false})
+        if(result){
+            return res.json({
+                message: "All users deleted",
+            })
+        }else{
+            throw createError(404, 'User not found')
+        }
+    } catch(err) {
+        next(createError(400, err))
+    }
+})
+
+
+router.delete('/:id', [authMiddleware,adminMiddleware], async (req,res,next) => {
     try{
         const result = await User.findById({_id:req.params.id})
         if(result){
@@ -160,6 +177,22 @@ router.delete('/:id',async (req,res,next) => {
         next(createError(400, err))
     }
 })
+
+router.delete('/me', authMiddleware, async (req,res,next) => {
+    try{
+        const result = await User.findById({_id:req.user._id})
+        if(result){
+            return res.json({
+                message: "User deleted",
+            })
+        }else{
+            throw createError(404, 'User not found')
+        }
+    } catch(err) {
+        next(createError(400, err))
+    }
+})
+
 
 
 module.exports = router
