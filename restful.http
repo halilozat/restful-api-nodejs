@@ -3,20 +3,20 @@
 GET {{BASE_URL}}
 
 ###
-GET {{BASE_URL}}/users
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhlYjE0OTEyZDM0MjE4M2NhZDYzZjEiLCJpYXQiOjE2MTk5ODEwOTAsImV4cCI6MTYxOTk4NDY5MH0.-8Bt93ihwszEXp4nRvVHrjFo6cft_5me-F8DxLt9RRA
+GET {{BASE_URL}}/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDkwMDc5ZjgwZjUxMzA2MzA2YTgzM2EiLCJpYXQiOjE2MjAwNTI3NTcsImV4cCI6MTYyMDA1NjM1N30.kN3GrxN8AGEAsUGmgUeivAe5ZaOZKte_oyBB-cQwErc
 
 ###
-GET {{BASE_URL}}/users/532
+GET {{BASE_URL}}/admin/532
 
 ###
-POST {{BASE_URL}}/users
+POST {{BASE_URL}}/admin
 Content-Type: application/json
 
 {
-    "name": "admin",
-    "email": "admin@hotmail.com",
-    "userName": "admin",
+    "name": "admin3",
+    "email": "admin3@hotmail.com",
+    "userName": "admin3",
     "password": "123456"
 
 }
@@ -26,12 +26,12 @@ POST {{BASE_URL}}/users/login
 Content-Type: application/json
 
 {
-    "email": "admin@hotmail.com",
+    "email": "admin2@hotmail.com",
     "password": "123456"
 }
 
 ###
-PATCH {{BASE_URL}}/users/608d50e9791cde4fb0ee7551
+PATCH {{BASE_URL}}/admin/608d50e9791cde4fb0ee7551
 Content-Type: application/json
 
 {
@@ -50,13 +50,13 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhkNTM1M
 }
 
 ###
-DELETE {{BASE_URL}}/users/608ac33213dc8614842ab997
+DELETE {{BASE_URL}}/admin/609009cd64920d3500e2d749
 Content-Type: application/json
 
-
+###
 DELETE   {{BASE_URL}}/users/me
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhkNTM1MzNjOTdlYzIwZDRiY2YxOTAiLCJpYXQiOjE2MTk5NjI4ODIsImV4cCI6MTYxOTk2NjQ4Mn0.eG4EUWTOgZjuL9sqKHpZ-ZtaFWnLbsIk2U4nwq9uook
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhlZjM5ODIwNmI4ZTJjMTBkY2Q5OWIiLCJpYXQiOjE2MjAwNTI3MzQsImV4cCI6MTYyMDA1NjMzNH0.zI4Pg7ugfykdjovnrCIt8_2H3kzUKqvS7c7m7YaFiQA
 
-
-GET  {{BASE_URL}}/users/deleteAll
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhkNTM1MzNjOTdlYzIwZDRiY2YxOTAiLCJpYXQiOjE2MTk5NjI4ODIsImV4cCI6MTYxOTk2NjQ4Mn0.eG4EUWTOgZjuL9sqKHpZ-ZtaFWnLbsIk2U4nwq9uook
+###
+GET  {{BASE_URL}}/admin/deleteAll
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2MDhlYjE0OTEyZDM0MjE4M2NhZDYzZjEiLCJpYXQiOjE2MjAwNTI1NDQsImV4cCI6MTYyMDA1NjE0NH0.SLfcKcsjsfFUAGSEJvXqrE2MkeIbsvX4mTwGOVN2lbo
